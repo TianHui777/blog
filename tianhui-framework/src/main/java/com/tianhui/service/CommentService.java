@@ -14,5 +14,7 @@ public interface CommentService extends IService<Comment> {
 
     // 获取所有的文章评论
     ResponseResult commentList(Long articleId, Integer pageNum, Integer pageSize);
+
+    ResponseResult addComment(Comment comment);
 }
 

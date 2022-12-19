@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tianhui.dao.CommentDao;
 import com.tianhui.entity.Comment;
 import com.tianhui.entity.ResponseResult;
+import com.tianhui.enums.AppHttpCodeEnum;
+import com.tianhui.exception.SystemException;
 import com.tianhui.service.CommentService;
 import com.tianhui.service.UserService;
 import com.tianhui.utils.BeanCopyUtils;
@@ -13,6 +15,7 @@ import com.tianhui.vo.CommentVo;
 import com.tianhui.vo.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -62,6 +65,18 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, Comment> impleme
         }
 
         return ResponseResult.okResult(new PageVo(commentVoList, page.getTotal()));
+    }
+
+    /*
+        新增评论
+     */
+    @Override
+    public ResponseResult addComment(Comment comment) {
+        if(!StringUtils.hasText(comment.getContent())){
+            throw new SystemException(AppHttpCodeEnum.CONTENT_NOT_NULL);
+        }
+        save(comment);// mybatisplus会自动填充字段
+        return ResponseResult.okResult();
     }
 
     /*

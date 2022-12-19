@@ -6,7 +6,9 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-
+/*
+    MP自动填充工具类
+ */
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override

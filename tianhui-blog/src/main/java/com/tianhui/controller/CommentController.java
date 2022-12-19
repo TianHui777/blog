@@ -1,9 +1,12 @@
 package com.tianhui.controller;
 
+import com.tianhui.entity.Comment;
 import com.tianhui.entity.ResponseResult;
 import com.tianhui.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +24,14 @@ public class CommentController {
 
         return commentService.commentList(articleId, pageNum, pageSize);
 
+    }
+
+
+    @PostMapping
+
+    public ResponseResult addComment(@RequestBody Comment comment){
+
+       return commentService.addComment(comment);
     }
 
 }
