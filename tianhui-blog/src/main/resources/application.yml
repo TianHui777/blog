@@ -20,3 +20,9 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
       id-type: auto
+
+
+oss:
+  accessKey: mp9Xz3FL6ZPZ-Gd5oCigO0aKRAdtpp0_1ntCJ-ym
+  secretKey: lBqqHpKEmUsVVuzcT5FFpKg-FqGtBa6iaFga4Ltj
+  bucket: pictures-files
