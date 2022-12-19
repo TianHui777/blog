@@ -1,4 +1,4 @@
-package com.tianhui.handle.exception;
+package com.tianhui.handler.exception;
 
 import com.tianhui.entity.ResponseResult;
 import com.tianhui.enums.AppHttpCodeEnum;
