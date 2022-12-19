@@ -19,5 +19,8 @@ public interface UserService extends IService<User> {
         更新用户信息
      */
     ResponseResult updateUserInfo(User user);
+
+    ResponseResult register(User user);
+
 }
 
