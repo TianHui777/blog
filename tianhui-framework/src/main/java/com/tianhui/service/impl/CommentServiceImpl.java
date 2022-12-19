@@ -3,6 +3,7 @@ package com.tianhui.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tianhui.constants.SystemConstants;
 import com.tianhui.dao.CommentDao;
 import com.tianhui.entity.Comment;
 import com.tianhui.entity.ResponseResult;
@@ -33,18 +34,18 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, Comment> impleme
 
     // 获取所有的文章评论
     @Override
-    public ResponseResult commentList(Long articleId, Integer pageNum, Integer pageSize) {
+    public ResponseResult commentList(String commentType, Long articleId, Integer pageNum, Integer pageSize) {
         // 查询对应文章的根评论
-
-
         LambdaQueryWrapper<Comment> queryWrapper = new LambdaQueryWrapper();
-        // 对应文章：articleId
-
-        queryWrapper.eq(Comment::getArticleId, articleId);
+        // 对应文章：articleId,如果是友链评论，则没有articleId，因此要进行判断
+        queryWrapper.eq(SystemConstants.ARTICLE_COMMENT.equals(commentType), Comment::getArticleId, articleId);
 
         // 根评论：rootId 为-1
 
         queryWrapper.eq(Comment::getRootId, -1);
+
+        // 根据评论类型进行筛选
+        queryWrapper.eq(Comment::getType, commentType);
 
         //分页
 
@@ -72,7 +73,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, Comment> impleme
      */
     @Override
     public ResponseResult addComment(Comment comment) {
-        if(!StringUtils.hasText(comment.getContent())){
+        if (!StringUtils.hasText(comment.getContent())) {
             throw new SystemException(AppHttpCodeEnum.CONTENT_NOT_NULL);
         }
         save(comment);// mybatisplus会自动填充字段
