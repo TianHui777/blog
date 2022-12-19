@@ -2,8 +2,12 @@ package com.tianhui.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tianhui.dao.UserDao;
+import com.tianhui.entity.ResponseResult;
 import com.tianhui.entity.User;
 import com.tianhui.service.UserService;
+import com.tianhui.utils.BeanCopyUtils;
+import com.tianhui.utils.SecurityUtils;
+import com.tianhui.vo.UserInfoVo;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,5 +19,18 @@ import org.springframework.stereotype.Service;
 @Service("userService")
 public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserService {
 
+    /*
+        获取用户信息
+     */
+    @Override
+    public ResponseResult userInfo() {
+
+        Long userId = SecurityUtils.getUserId();
+        User user = getById(userId);
+        UserInfoVo userInfoVo = BeanCopyUtils.copyBean(user, UserInfoVo.class);
+
+
+        return ResponseResult.okResult(userInfoVo);
+    }
 }
 
