@@ -1,11 +1,10 @@
 package com.tianhui.controller;
 
 import com.tianhui.entity.ResponseResult;
+import com.tianhui.entity.User;
 import com.tianhui.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -15,9 +14,14 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/userInfo")
-    public ResponseResult userInfo(){
+    public ResponseResult userInfo() {
 
         return userService.userInfo();
 
+    }
+
+    @PutMapping("/userInfo")
+    public ResponseResult updateUserInfo(@RequestBody User user) {
+        return userService.updateUserInfo(user);
     }
 }

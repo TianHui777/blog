@@ -32,5 +32,14 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
         return ResponseResult.okResult(userInfoVo);
     }
+
+    /*
+        更新用户信息
+     */
+    @Override
+    public ResponseResult updateUserInfo(User user) {
+        updateById(user);
+        return ResponseResult.okResult();
+    }
 }
 
